@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import Container from './Container'
 import Web3 from 'web3'
-import Content from './Content'
+import Content from './components/Content'
 import Election from '../build/contracts/Election.json'
 import TruffleContract from 'truffle-contract'
 
@@ -97,5 +96,5 @@ class App extends Component {
 }
 
 ReactDOM.render(
-    <div><App />hello2</div>, document.querySelector('#root')
+    <div><App /></div>, document.querySelector('#root')
 )
