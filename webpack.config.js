@@ -2,7 +2,7 @@ const path = require('path');
  
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: './src/App.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -13,6 +13,19 @@ module.exports = {
                 loader: 'babel-loader',
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
+            },
+            {
+                test: /\.jsx?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                query: {
+                    presets: ['es2015', 'react', 'stage-2']
+                }
+            },
+            {
+                test: /\.json$/,
+                loader: 'json-loader',
+                include: '/build/contracts/'
             }
         ]
     },
