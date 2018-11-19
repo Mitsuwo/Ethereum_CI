@@ -1,23 +1,19 @@
-import React from 'react';
-import {Link, NavLink, withRouter} from 'react-router-dom'
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
-const Navbar = (props) => {
-    // setTimeout(() => {
-    //     props.history.push('/about')
-    // }, 2000);
-    return(
-        <Menu>
-          <div className="container">
-            <MenuItem>Poke'Times</MenuItem>
-
-            <MenuItem><Link to='/'>Home</Link></MenuItem>
-            <MenuItem><NavLink to='/About'>About</NavLink></MenuItem>
-            <MenuItem><NavLink to='/Contact'>Contact</NavLink></MenuItem>
-
-          </div>
-        </Menu>
+const Navbar = () => {
+    return (
+        <div class="navbar-relative">
+            <nav>
+            <div className="nav-wrapper">
+                <Link to='/' className="brand-logo">需要予測システム</Link>
+                <ul className="right hide-on-med-and-down">
+                    <li><NavLink to='/about'>about</NavLink></li>
+                    <li><NavLink to='/voting'>投票フォーム</NavLink></li>
+                </ul>
+            </div>
+            </nav>
+        </div>
     )
 }
 
