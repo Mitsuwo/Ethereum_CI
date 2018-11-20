@@ -6,7 +6,17 @@ class Content extends Component {
   render() {
     return (
       <div>
+        <h4>投票結果</h4>
         <ViewTable candidates={this.props.candidates} />
+        <hr/>
+        <h4>投票概要</h4>
+        {this.props.hosts.map((host) => {
+          return(
+            <tr>
+              <td>{host.hostDescription}</td>
+            </tr>
+          )
+        })}
         <hr/>
         { !this.props.hasVoted ?
           <VotingForm
@@ -16,7 +26,7 @@ class Content extends Component {
           />
           : null
         }
-        <p>アカウント: {this.props.account}</p>
+        <h4>あなたのアカウント: {this.props.account}</h4>
       </div>
     )
   }

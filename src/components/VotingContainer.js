@@ -11,6 +11,7 @@ class VotingContainer extends Component {
         this.state = {
             account: '0x0',
             candidates: [],
+            hosts: [],
             hasVoted: false,
             loading: true,
             voting: false,
@@ -50,6 +51,18 @@ class VotingContainer extends Component {
                         });
                     }
                 })
+                this.electionInstance.hostsCount().then((hostsCount) => {
+                    for (var i = 1; i <= hostsCount; i++) {
+                        this.electionInstance.hosts(i).then((host) => {
+                            const hosts = [...this.state.hosts]
+                            hosts.push({
+                                id: host[0],
+                                hostDescription: host[1],
+                            });
+                            this.setState({ hosts: hosts })
+                        });
+                    }
+                })
                 this.electionInstance.voters(this.state.account).then((hasVoted) => {
                     this.setState({ hasVoted, loading: false })
                 })
@@ -85,6 +98,7 @@ class VotingContainer extends Component {
                         : <Content
                             account={this.state.account}
                             candidates={this.state.candidates}
+                            hosts={this.state.hosts}
                             hasVoted={this.state.hasVoted}
                             castVote={this.castVote} 
                         />

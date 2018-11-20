@@ -26,14 +26,14 @@ class VotingForm extends React.Component {
         this.props.castVote(this.candidateId.value)
       }}>
         <div class='form-group'>
-          <label>Select Candidate</label>
+          <h4>予測を一つ選んでください</h4>
           <select ref={(input) => this.candidateId = input} class='form-control'>
             {this.props.candidates.map((candidate) => {
               return <option value={candidate.id}>{candidate.name}</option>
             })}
           </select>
         </div>
-        <Button type='submit' variant="contained">Vote</Button>
+        <button type='submit' class='btn btn-primary'>投票</button>
         <hr />
       </form>
     )
