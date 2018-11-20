@@ -1,18 +1,32 @@
 import React, { Component } from 'react'
-import Table from './Table'
-import Form from './Form'
+import ViewTable from './ViewTable'
+import VotingForm from './VotingForm'
 
 class Content extends Component {
   render() {
     return (
       <div>
-        <Table candidates={this.props.candidates} />
+        <h4>投票結果</h4>
+        <ViewTable candidates={this.props.candidates} />
+        <hr/>
+        <h4>投票概要</h4>
+        {this.props.hosts.map((host) => {
+          return(
+            <tr>
+              <td>{host.hostDescription}</td>
+            </tr>
+          )
+        })}
         <hr/>
         { !this.props.hasVoted ?
-          <Form candidates={this.props.candidates} castVote={this.props.castVote} />
+          <VotingForm
+            candidates={this.props.candidates}
+            castVote={this.props.castVote}
+            account={this.props.account}
+          />
           : null
         }
-        <p>Your account: {this.props.account}</p>
+        <h4>あなたのアカウント: {this.props.account}</h4>
       </div>
     )
   }
