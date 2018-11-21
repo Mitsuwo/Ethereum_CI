@@ -15,7 +15,7 @@ class App extends Component {
         super(props)
         this.state = {
             account: '0x0',
-            candidates: [],
+            votes: [],
             hosts: [],
             hasVoted: false,
             loading: true,
@@ -44,31 +44,37 @@ class App extends Component {
             this.election.deployed().then((electionInstance) => {
                 this.electionInstance = electionInstance
                 this.watchEvents()
-                // this.electionInstance.candidatesCount().then((candidatesCount) => {
-                //     for (var i = 1; i <= candidatesCount; i++) {
-                //         this.electionInstance.candidates(i).then((candidate) => {
-                //             const candidates = [...this.state.candidates]
-                //             candidates.push({
-                //                 id: candidate[0],
-                //                 name: candidate[1],
-                //                 voteCount: candidate[2]
-                //             });
-                //             this.setState({ candidates: candidates })
-                //         });
-                //     }
-                // })
-                // this.electionInstance.hostsCount().then((hostsCount) => {
-                //     for (var i = 1; i <= hostsCount; i++) {
-                //         this.electionInstance.hosts(i).then((host) => {
-                //             const hosts = [...this.state.hosts]
-                //             hosts.push({
-                //                 id: host[0],
-                //                 hostDescription: host[1],
-                //             });
-                //             this.setState({ hosts: hosts })
-                //         });
-                //     }
-                // })
+                this.electionInstance.votesCount()
+                .then((votesCount) => {
+                    for (var i = 1; i <= votesCount; i++) {
+                        this.electionInstance.votes(i)
+                        .then((vote) => {
+                            const votes = [...this.state.votes]
+                            votes.push({
+                                id: vote[0],
+                                sender: vote[1],
+                                value: vote[2],
+                                hostId: vote[3],
+                            });
+                            this.setState({ votes: votes })
+                        });
+                    }
+                })
+                this.electionInstance.hostsCount().then((hostsCount) => {
+                    for (var i = 1; i <= hostsCount; i++) {
+                        this.electionInstance.hosts(i).then((host) => {
+                            const hosts = [...this.state.hosts]
+                            hosts.push({
+                                id: host[0],
+                                sender: host[1],
+                                title: host[2],
+                                description: host[3],
+                                reward: host[4],
+                            });
+                            this.setState({ hosts: hosts })
+                        });
+                    }
+                })
                 // this.electionInstance.voters(this.state.account).then((hasVoted) => {
                 //     this.setState({ hasVoted, loading: false })
                 // })
@@ -98,29 +104,33 @@ class App extends Component {
 
     render() {
         return (
-            <div className="row">
-                <div className="col-lg-12 text-center">
-                    <h1>投票ページ</h1>
-                    <br/>
-                    <Content
-                        account={this.state.account}
-                        candidates={this.state.candidates}
-                        hosts={this.state.hosts}
-                        hasVoted={this.state.hasVoted}
-                        sendVote={this.sendVote} 
-                    />
-                    {/* { this.state.loading || this.state.voting
-                        ? <p class='text-center'>Loading...</p>
-                        : <Content
-                            account={this.state.account}
-                            candidates={this.state.candidates}
-                            hosts={this.state.hosts}
-                            hasVoted={this.state.hasVoted}
-                            sendVote={this.sendVote} 
-                        />
-                    } */}
+            <BrowserRouter>
+                <div>
+                    <Navbar />
+                    <Switch>
+                        <Route exact path='/' component={() =>
+                            <Content
+                                account={this.state.account}
+                                votes={this.state.votes}
+                                hosts={this.state.hosts}
+                                hasVoted={this.state.hasVoted}
+                                sendVote={this.sendVote} 
+                            />
+                        }/>
+                        {/* <Route path='/project/:id' component={ProjectDetails} /> */}
+                        <Route path='/home' component={() =>
+                            <Home
+                                account={this.state.account}
+                                votes={this.state.votes}
+                                hosts={this.state.hosts}
+                                hasVoted={this.state.hasVoted}
+                                sendVote={this.sendVote}
+                            />
+                        } />
+                        <Route path='/about' component={About} />
+                    </Switch>
                 </div>
-            </div>
+            </BrowserRouter>
         )
     }
 }
