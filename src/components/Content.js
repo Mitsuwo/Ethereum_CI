@@ -6,20 +6,28 @@ class Content extends Component {
   render() {
     return (
       <div>
-        {/* <h4>投票結果</h4>
-        <ViewTable candidates={this.props.candidates} />
+        <h4>投票結果</h4>
+        <ViewTable votes={this.props.votes} />
         <hr/>
         <h4>投票概要</h4>
         {this.props.hosts.map((host) => {
           return(
-            <tr>
-              <td>{host.hostDescription}</td>
-            </tr>
+            <div>
+              <tr>
+                <td>{host.id.toNumber()}/</td>
+                <td>{host.sender}</td>
+              </tr>
+              <tr>
+                <td>{host.title}/</td>
+                <td>{host.description}/</td>
+                <td>{host.reward}</td>
+              </tr>
+            </div>
           )
-        })} */}
+        })}
         <hr/>
         <VotingForm
-          candidates={this.props.candidates}
+          votes={this.props.votes}
           sendVote={this.props.sendVote}
           account={this.props.account}
         />

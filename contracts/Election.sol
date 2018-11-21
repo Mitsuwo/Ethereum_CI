@@ -3,6 +3,7 @@ pragma solidity ^0.4.24;
 contract Election {
 
     struct Vote {
+        uint id;
         address sender;
         uint value;
         uint hostId;
@@ -10,50 +11,55 @@ contract Election {
 
     struct Host {
         uint id;
+        address sender;
         string title;
-        string hostDescription;
-        uint hostsCount;
+        string description;
+        string reward;
     }
-
-    Vote[] public votes;
     
     mapping(address => bool) public voters;
 
-    //mapping(uint => Vote) public votes;
+    mapping(uint => Vote) public votes;
+
     mapping(uint => Host) public hosts;
 
-    // uint public candidatesCount;
+
+    uint public votesCount;
+
     uint public hostsCount;
 
+    // test...
     event votedEvent (
-        uint indexed_voteId
+        uint indexed _voteId
     );
 
     constructor() public {
-        votes.push(Vote(0, 0, 1));
-        addHost("この商品の需要量を予測してください");
+        addHost("自動生成", "この商品の需要量を予測してください", "報酬タイプA");
     }
 
-    function vote(uint _value, uint _hostId) public returns(uint) {
+    function vote(uint _value, uint _hostId) public {
         require(_value != 0);
-        uint id = votes.push(Vote(msg.sender, _value, _hostId))-1;
-        return id;
+        votesCount ++;
+        votes[votesCount] = Vote(votesCount, msg.sender, _value, _hostId);
+
+        // test...
+        votedEvent(_value);
     }
 
-    function getVotes() external view returns (uint[20]) {
-        uint[20] memory results;
-        uint max = votes.length > 20 ? 20 : votes.length - 1;
-        for (uint i=0; i<max; i++) {
-            uint voteId = votes.length - 1 - i;
-            results[i] = voteId;
-        }
-        return results;
-    }
-
-    function addHost (string _description) private {
+    function addHost (string _title, string _description, string _reward) private {
         hostsCount ++;
-        hosts[hostsCount] = Host(hostsCount, "", _description, 0);
+        hosts[hostsCount] = Host(hostsCount, msg.sender, _title, _description, _reward);
     }
+
+    // function getVotes() external view returns (uint[20]) {
+    //     uint[20] memory results;
+    //     uint max = votes[].length > 20 ? 20 : votes.length - 1;
+    //     for (uint i=0; i<max; i++) {
+    //         uint voteId = votes.length - 1 - i;
+    //         results[i] = voteId;
+    //     }
+    //     return results;
+    // }
 
     // function addVote (string _name) private {
     //     candidatesCount ++;

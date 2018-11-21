@@ -51,11 +51,6 @@ class VotingForm extends React.Component {
             <label>ホストID</label>
             <input type="text" id="hostId" value={this.state.hostId} onChange={this.handleChange}/>
           </div>
-          {/* <select ref={(input) => this.candidateId = input} class='form-control'>
-            {this.props.candidates.map((candidate) => {
-              return <option value={candidate.id}>{candidate.name}</option>
-            })}
-          </select> */}
         </div>
         <button type='submit' value='send'>投票</button>
         <hr />

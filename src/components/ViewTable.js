@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -17,7 +17,7 @@ const styles = theme => ({
   },
 });
 
-class ViewTable extends React.Component {
+class ViewTable extends Component {
   render(props) {
     return (
       <Paper className={styles.root}>
@@ -25,17 +25,19 @@ class ViewTable extends React.Component {
           <TableHead>
             <TableRow>
               <TableCell>#</TableCell>
-              <TableCell numeric>Name</TableCell>
-              <TableCell numeric>Votes</TableCell>
+              <TableCell numeric>Voter</TableCell>
+              <TableCell numeric>Value</TableCell>
+              <TableCell numeric>Host ID</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.candidates.map((candidate) => {
+            {this.props.votes.map((vote) => {
               return(
                 <TableRow>
-                  <TableCell>{candidate.id.toNumber()}</TableCell>
-                  <TableCell numeric>{candidate.name}</TableCell>
-                  <TableCell numeric>{candidate.voteCount.toNumber()}</TableCell>
+                  <TableCell>{vote.id.toNumber()}</TableCell>
+                  <TableCell numeric>{vote.sender}</TableCell>
+                  <TableCell numeric>{vote.value.toNumber()}</TableCell>
+                  <TableCell numeric>{vote.hostId.toNumber()}</TableCell>
                 </TableRow>
               )
             })}
