@@ -3,63 +3,73 @@ pragma solidity ^0.4.24;
 contract Election {
 
     struct Vote {
-        uint id;
-        string name;
-        uint voteCount;
+        address sender;
+        uint value;
+        uint hostId;
     }
 
     struct Host {
         uint id;
+        string title;
         string hostDescription;
-        uint hostCount;
+        uint hostsCount;
     }
+
+    Vote[] public votes;
     
     mapping(address => bool) public voters;
 
-    mapping(uint => Candidate) public candidates;
+    //mapping(uint => Vote) public votes;
     mapping(uint => Host) public hosts;
 
-    uint public candidatesCount;
+    // uint public candidatesCount;
     uint public hostsCount;
 
     event votedEvent (
-        uint indexed_candidateId
+        uint indexed_voteId
     );
 
     constructor() public {
-        addCandidate("0 - 1000");
-        addCandidate("1001 - 2000");
-        addCandidate("2001 - 3000");
-        addCandidate("3001 - 4000");
-        addCandidate("4001 - 5000");
-        addCandidate("5001 - 6000");
-        addCandidate("6001 - 7000");
-        addCandidate("7001 - 8000");
-        addCandidate("8001 - 9000");
-        addCandidate("9001 - 10000");
+        votes.push(Vote(0, 0, 1));
         addHost("この商品の需要量を予測してください");
     }
 
-    function addCandidate (string _name) private {
-        candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+    function vote(uint _value, uint _hostId) public returns(uint) {
+        require(_value != 0);
+        uint id = votes.push(Vote(msg.sender, _value, _hostId))-1;
+        return id;
+    }
+
+    function getVotes() external view returns (uint[20]) {
+        uint[20] memory results;
+        uint max = votes.length > 20 ? 20 : votes.length - 1;
+        for (uint i=0; i<max; i++) {
+            uint voteId = votes.length - 1 - i;
+            results[i] = voteId;
+        }
+        return results;
     }
 
     function addHost (string _description) private {
         hostsCount ++;
-        hosts[hostsCount] = Host(hostsCount, _description, 0);
+        hosts[hostsCount] = Host(hostsCount, "", _description, 0);
     }
 
-    function vote (uint _candidateId) public {
-        //require
-        require(!voters[msg.sender]);
-        //require
-        require(_candidateId > 0 && _candidateId <= candidatesCount);
-        //record that voter has voted
-        voters[msg.sender] = true;
-        //update candidate vote Count
-        candidates[_candidateId].voteCount ++;
+    // function addVote (string _name) private {
+    //     candidatesCount ++;
+    //     candidates[candidatesCount] = Vote(candidatesCount, _name, 0);
+    // }
 
-        votedEvent(_candidateId);
-    }
+    // function vote (uint _candidateId) public {
+    //     //require
+    //     require(!voters[msg.sender]);
+    //     //require
+    //     require(_candidateId > 0 && _candidateId <= candidatesCount);
+    //     //record that voter has voted
+    //     voters[msg.sender] = true;
+    //     //update candidate vote Count
+    //     votes[_candidateId].voteCount ++;
+
+    //     votedEvent(_candidateId);
+    // }
 }
