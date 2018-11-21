@@ -6,7 +6,7 @@ class Content extends Component {
   render() {
     return (
       <div>
-        <h4>投票結果</h4>
+        {/* <h4>投票結果</h4>
         <ViewTable candidates={this.props.candidates} />
         <hr/>
         <h4>投票概要</h4>
@@ -16,16 +16,13 @@ class Content extends Component {
               <td>{host.hostDescription}</td>
             </tr>
           )
-        })}
+        })} */}
         <hr/>
-        { !this.props.hasVoted ?
-          <VotingForm
-            candidates={this.props.candidates}
-            castVote={this.props.castVote}
-            account={this.props.account}
-          />
-          : null
-        }
+        <VotingForm
+          candidates={this.props.candidates}
+          sendVote={this.props.sendVote}
+          account={this.props.account}
+        />
         <h4>あなたのアカウント: {this.props.account}</h4>
       </div>
     )
