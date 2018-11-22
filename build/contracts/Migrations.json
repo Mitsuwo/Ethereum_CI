@@ -1378,10 +1378,10 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xdf51c15bc730c447a1aafefbab2a2a0c7218386d",
-      "transactionHash": "0x84a380a25c7a21bb0887e8432d5ddce85cce0f41a18f7e8c56c60fd3275a9724"
+      "address": "0x60ba122c1a27db2e0841a92f3b1a9dbb1036576f",
+      "transactionHash": "0xad2242cd11e851746177ee37005b51f215a9f627b23bcdc232b17de7f3b33489"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-11-21T05:21:50.482Z"
+  "updatedAt": "2018-11-21T07:55:31.874Z"
 }

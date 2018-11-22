@@ -1,27 +1,47 @@
 import React, { Component } from 'react'
 
 class HostingForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          title: '',
+          description: '',
+          reward: '',
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+    
+    handleChange(e) {
+        this.setState({
+            [e.target.id]: e.target.value
+        })
+    }
     render() {
         return(
             <form onSubmit={e => {
                 e.preventDefault()
-                console.log(this.state.value)
-                console.log(this.state.hostId)
-                this.props.sendVote(this.state.value, this.state.hostId)
+                console.log(this.state)
+                this.props.sendHost(this.state.title, this.state.description, this.state.reward)
             }}>
             <div class='form-group'>
                 <div>
-                    <label>予測数値を入力してください</label>
-                    <input type="text" id="value" value={this.state.value} onChange={this.handleChange}/>
+                    <label>タイトル</label>
+                    <input type="text" id="title" value={this.state.title} onChange={this.handleChange}/>
                 </div>
                 <div>
-                    <label>ホストID</label>
-                    <input type="text" id="hostId" value={this.state.hostId} onChange={this.handleChange}/>
+                    <label>予測概要</label>
+                    <input type="text" id="description" value={this.state.description} onChange={this.handleChange}/>
+                </div>
+                <div>
+                    <label>報酬設定</label>
+                    <input type="text" id="reward" value={this.state.reward} onChange={this.handleChange}/>
                 </div>
             </div>
-            <button type='submit' value='send'>投票</button>
+            <button type='submit' value='send'>予測開始</button>
             <hr />
             </form>
         )
     }
 }
+
+export default HostingForm
