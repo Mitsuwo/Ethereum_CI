@@ -34,7 +34,7 @@ contract Election {
     );
 
     constructor() public {
-        addHost("自動生成", "この商品の需要量を予測してください", "報酬タイプA");
+        host("自動生成", "この商品の需要量を予測してください", "報酬タイプA");
     }
 
     function vote(uint _value, uint _hostId) public {
@@ -46,7 +46,7 @@ contract Election {
         votedEvent(_value);
     }
 
-    function addHost (string _title, string _description, string _reward) private {
+    function host (string _title, string _description, string _reward) public {
         hostsCount ++;
         hosts[hostsCount] = Host(hostsCount, msg.sender, _title, _description, _reward);
     }

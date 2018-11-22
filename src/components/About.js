@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
+import ViewTable from './ViewTable'
 
-const About = () => {
-    return (
-        <div>this is about</div>
-    )
+class About extends Component {
+    render() {
+        return(
+            <div>
+                <h4>投票結果</h4>
+                <ViewTable votes={this.props.votes} />
+            </div>
+        )
+    }
 }
 
 export default About

@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Web3 from 'web3'
-import Content from './components/Content'
+import HostList from './components/HostList'
 import Election from '..//build/contracts/Election.json'
 import TruffleContract from 'truffle-contract'
-import VotingContainer from './components/VotingContainer'
-import Navbar from './components/Navbar'
 import Home from './components/Home'
 import About from './components/About'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import VotingForm from './components/VotingForm';
+import Navbar from './components/Navbar'
+import ViewDetail from './components/ViewDetail'
 
 class App extends Component {
     constructor(props) {
@@ -34,11 +35,11 @@ class App extends Component {
     
         this.sendVote = this.sendVote.bind(this)
         this.watchEvents = this.watchEvents.bind(this)
+        this.sendHost = this.sendHost.bind(this)
     }
 
     componentDidMount() {
         // TODO: Refactor with promise chain
-        // this.web3.eth.defaultAccount = web3.eth.accounts[0]
         this.web3.eth.getCoinbase((err, account) => {
             this.setState({ account })
             this.election.deployed().then((electionInstance) => {
@@ -98,7 +99,17 @@ class App extends Component {
         console.log(hostId)
         this.electionInstance.vote(value, hostId, { from: this.state.account })
         .then((result) =>
-        console.log('voted!')
+            console.log('voted!')
+        )
+    }
+
+    sendHost(title, description, reward) {
+        console.log(title)
+        console.log(description)
+        console.log(reward)
+        this.electionInstance.host(title, description, reward, { from: this.state.account })
+        .then((result) =>
+            console.log('sent!')
         )
     }
 
@@ -106,28 +117,39 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div>
-                    <Navbar />
+                    <Navbar account={this.state.account}/>
                     <Switch>
                         <Route exact path='/' component={() =>
-                            <Content
+                            <Home
+                                account={this.state.account}
+                                votes={this.state.votes}
+                                hosts={this.state.hosts}
+                                hasVoted={this.state.hasVoted}
+                                sendHost={this.sendHost}
+                            />
+                        }/>
+                        <Route path='/hostlist/:id' component={ViewDetail} hosts={this.state.hosts}/>
+                        <Route path='/hostlist' component={() =>
+                            <HostList
                                 account={this.state.account}
                                 votes={this.state.votes}
                                 hosts={this.state.hosts}
                                 hasVoted={this.state.hasVoted}
                                 sendVote={this.sendVote} 
                             />
-                        }/>
-                        {/* <Route path='/project/:id' component={ProjectDetails} /> */}
-                        <Route path='/home' component={() =>
-                            <Home
-                                account={this.state.account}
+                        } />
+                        <Route path='/about' component={() =>
+                            <About
                                 votes={this.state.votes}
-                                hosts={this.state.hosts}
-                                hasVoted={this.state.hasVoted}
-                                sendVote={this.sendVote}
                             />
                         } />
-                        <Route path='/about' component={About} />
+                        <Route path='/voting' component={() =>
+                            <VotingForm
+                                votes={this.state.votes}
+                                sendVote={this.state.sendVote}
+                                account={this.state.account}
+                            />
+                        } />
                     </Switch>
                 </div>
             </BrowserRouter>

@@ -20,17 +20,18 @@ const styles = {
 
 const Navbar = (props) => {
     const { classes } = props;
-    return (
+    return(
         <div className={classes.root}>
+            <h3>あなたのアカウント: {props.account}</h3>
             <AppBar position="static" color="inherit">
                 <Toolbar>
                     <Link to='/' className={classes.grow}><Button>需要予測システム</Button></Link>
-                    <NavLink to='/home'><Button>HOME</Button></NavLink>
-                    <NavLink to='/home'><Button>ABOUT</Button></NavLink>
+                    <NavLink to='/hostlist'><Button>Host List</Button></NavLink>
+                    <NavLink to='/about'><Button>ABOUT</Button></NavLink>
+                    <NavLink to='/voting'><Button>VOTING</Button></NavLink>
                 </Toolbar>
             </AppBar>
         </div>
     )
 }
-
 export default withStyles(styles)(Navbar);
