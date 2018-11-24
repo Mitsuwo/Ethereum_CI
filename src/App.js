@@ -21,6 +21,7 @@ class App extends Component {
             hasVoted: false,
             loading: true,
             voting: false,
+            host: [],
         }
         if (typeof web3 != 'undefined') {
             this.web3Provider = web3.currentProvider
@@ -36,6 +37,7 @@ class App extends Component {
         this.sendVote = this.sendVote.bind(this)
         this.watchEvents = this.watchEvents.bind(this)
         this.sendHost = this.sendHost.bind(this)
+        this.getHost = this.getHost.bind(this)
     }
 
     componentDidMount() {
@@ -76,9 +78,6 @@ class App extends Component {
                         });
                     }
                 })
-                // this.electionInstance.voters(this.state.account).then((hasVoted) => {
-                //     this.setState({ hasVoted, loading: false })
-                // })
             })
         })
     }
@@ -104,12 +103,17 @@ class App extends Component {
     }
 
     sendHost(title, description, reward) {
-        console.log(title)
-        console.log(description)
-        console.log(reward)
         this.electionInstance.host(title, description, reward, { from: this.state.account })
         .then((result) =>
             console.log('sent!')
+        )
+    }
+
+    getHost(id) {
+        console.log(id)
+        this.electionInstance.getHost(id, { from: this.state.account })
+        .then((result) =>
+            this.setState({host: result})
         )
     }
 
@@ -128,20 +132,24 @@ class App extends Component {
                                 sendHost={this.sendHost}
                             />
                         }/>
-                        <Route path='/hostlist/:id' component={ViewDetail} hosts={this.state.hosts}/>
+                        <Route path='/hostlist/:id' render={(match) =>
+                            <ViewDetail
+                                hosts={this.state.hosts}
+                                getHost={this.getHost}
+                                match={match}
+                                host={this.state.host}
+                            />}
+                        />
+                        {/* <Route path='/hostlist/:id' component={ViewDetail} hosts={this.state.hosts}/> */}
                         <Route path='/hostlist' component={() =>
                             <HostList
                                 account={this.state.account}
-                                votes={this.state.votes}
                                 hosts={this.state.hosts}
                                 hasVoted={this.state.hasVoted}
-                                sendVote={this.sendVote} 
                             />
                         } />
                         <Route path='/about' component={() =>
-                            <About
-                                votes={this.state.votes}
-                            />
+                            <About votes={this.state.votes} />
                         } />
                         <Route path='/voting' component={() =>
                             <VotingForm

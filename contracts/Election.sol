@@ -51,7 +51,7 @@ contract Election {
         hosts[hostsCount] = Host(hostsCount, msg.sender, _title, _description, _reward);
     }
 
-    // function getVotes() external view returns (uint[20]) {
+    // function getHost() external view returns (uint[20]) {
     //     uint[20] memory results;
     //     uint max = votes[].length > 20 ? 20 : votes.length - 1;
     //     for (uint i=0; i<max; i++) {
@@ -60,6 +60,11 @@ contract Election {
     //     }
     //     return results;
     // }
+
+    function getHost(uint _id) public view returns (uint, address, string, string, string) {
+        Host memory host = hosts[_id];
+        return (_id, host.sender, host.title, host.description, host.reward);
+    }
 
     // function addVote (string _name) private {
     //     candidatesCount ++;
