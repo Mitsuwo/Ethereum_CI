@@ -18,7 +18,7 @@ const styles = theme => ({
 });
 
 class ViewTable extends Component {
-  render(props) {
+  render() {
     return (
       <Paper className={styles.root}>
         <Table className={styles.root}>
@@ -31,7 +31,7 @@ class ViewTable extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.votes.map((vote) => {
+            {this.props.filtered_votes.map((vote) => {
               return(
                 <TableRow>
                   <TableCell>{vote.id.toNumber()}</TableCell>
@@ -44,26 +44,6 @@ class ViewTable extends Component {
           </TableBody>
         </Table>
       </Paper>
-      // <table class='table'>
-      //   <thead>
-      //     <tr>
-      //       <th>#</th>
-      //       <th>Name</th>
-      //       <th>Votes</th>
-      //     </tr>
-      //   </thead>
-      //   <tbody >
-      //     {this.props.candidates.map((candidate) => {
-      //       return(
-      //         <tr>
-      //           <th>{candidate.id.toNumber()}</th>
-      //           <td>{candidate.name}</td>
-      //           <td>{candidate.voteCount.toNumber()}</td>
-      //         </tr>
-      //       )
-      //     })}
-      //   </tbody>
-      // </table>
     )
   }
 }

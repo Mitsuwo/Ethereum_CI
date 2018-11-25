@@ -4,12 +4,11 @@ import Web3 from 'web3'
 import HostList from './components/HostList'
 import Election from '..//build/contracts/Election.json'
 import TruffleContract from 'truffle-contract'
-import Home from './components/Home'
+import Hosting from './components/Hosting'
 import About from './components/About'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import VotingForm from './components/VotingForm';
 import Navbar from './components/Navbar'
-import ViewDetail from './components/ViewDetail'
+import HostContainer from './containers/HostContainer'
 
 class App extends Component {
     constructor(props) {
@@ -35,7 +34,6 @@ class App extends Component {
         this.election.setProvider(this.web3Provider)
     
         this.sendVote = this.sendVote.bind(this)
-        this.watchEvents = this.watchEvents.bind(this)
         this.sendHost = this.sendHost.bind(this)
         this.getHost = this.getHost.bind(this)
     }
@@ -46,7 +44,7 @@ class App extends Component {
             this.setState({ account })
             this.election.deployed().then((electionInstance) => {
                 this.electionInstance = electionInstance
-                this.watchEvents()
+                // this.watchEvents()
                 this.electionInstance.votesCount()
                 .then((votesCount) => {
                     for (var i = 1; i <= votesCount; i++) {
@@ -79,16 +77,6 @@ class App extends Component {
                     }
                 })
             })
-        })
-    }
-
-    watchEvents() {
-        // TODO: trigger event when vote is counted, not when component renders
-        this.electionInstance.votedEvent({}, {
-            fromBlock: 0,
-            toBlock: 'latest'
-        }).watch((error, event) => {
-            this.setState({ voting: false })
         })
     }
     
@@ -124,7 +112,14 @@ class App extends Component {
                     <Navbar account={this.state.account}/>
                     <Switch>
                         <Route exact path='/' component={() =>
-                            <Home
+                            <HostList
+                                account={this.state.account}
+                                hosts={this.state.hosts}
+                                hasVoted={this.state.hasVoted}
+                            />
+                        } />
+                        <Route path='/hosting' component={() =>
+                            <Hosting
                                 account={this.state.account}
                                 votes={this.state.votes}
                                 hosts={this.state.hosts}
@@ -132,31 +127,17 @@ class App extends Component {
                                 sendHost={this.sendHost}
                             />
                         }/>
-                        <Route path='/hostlist/:id' render={(match) =>
-                            <ViewDetail
-                                hosts={this.state.hosts}
+                        <Route path='/host/:id' render={(match) =>
+                            <HostContainer
                                 getHost={this.getHost}
+                                sendVote={this.sendVote}
                                 match={match}
                                 host={this.state.host}
+                                votes={this.state.votes}
                             />}
                         />
-                        {/* <Route path='/hostlist/:id' component={ViewDetail} hosts={this.state.hosts}/> */}
-                        <Route path='/hostlist' component={() =>
-                            <HostList
-                                account={this.state.account}
-                                hosts={this.state.hosts}
-                                hasVoted={this.state.hasVoted}
-                            />
-                        } />
                         <Route path='/about' component={() =>
-                            <About votes={this.state.votes} />
-                        } />
-                        <Route path='/voting' component={() =>
-                            <VotingForm
-                                votes={this.state.votes}
-                                sendVote={this.state.sendVote}
-                                account={this.state.account}
-                            />
+                            <About />
                         } />
                     </Switch>
                 </div>

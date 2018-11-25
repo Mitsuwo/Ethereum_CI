@@ -16,22 +16,16 @@ contract Election {
         string description;
         string reward;
     }
-    
-    mapping(address => bool) public voters;
 
     mapping(uint => Vote) public votes;
 
     mapping(uint => Host) public hosts;
 
+    //mapping(int => Vote) public voteIdFromHostId;
 
     uint public votesCount;
 
     uint public hostsCount;
-
-    // test...
-    event votedEvent (
-        uint indexed _voteId
-    );
 
     constructor() public {
         host("自動生成", "この商品の需要量を予測してください", "報酬タイプA");
@@ -41,9 +35,6 @@ contract Election {
         require(_value != 0);
         votesCount ++;
         votes[votesCount] = Vote(votesCount, msg.sender, _value, _hostId);
-
-        // test...
-        votedEvent(_value);
     }
 
     function host (string _title, string _description, string _reward) public {
@@ -51,19 +42,14 @@ contract Election {
         hosts[hostsCount] = Host(hostsCount, msg.sender, _title, _description, _reward);
     }
 
-    // function getHost() external view returns (uint[20]) {
-    //     uint[20] memory results;
-    //     uint max = votes[].length > 20 ? 20 : votes.length - 1;
-    //     for (uint i=0; i<max; i++) {
-    //         uint voteId = votes.length - 1 - i;
-    //         results[i] = voteId;
-    //     }
-    //     return results;
-    // }
-
     function getHost(uint _id) public view returns (uint, address, string, string, string) {
         Host memory host = hosts[_id];
         return (_id, host.sender, host.title, host.description, host.reward);
+    }
+
+    function getVote(uint _id) public view returns (uint, address, uint, uint) {
+        Vote memory vote = votes[_id];
+        return (_id, vote.sender, vote.value, vote.hostId);
     }
 
     // function addVote (string _name) private {

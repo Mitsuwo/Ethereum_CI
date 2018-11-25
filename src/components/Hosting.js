@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import HostingForm from './HostingForm'
 
-class Home extends Component {
+class Hosting extends Component {
     render() {
         return(
             <div>
@@ -12,4 +12,4 @@ class Home extends Component {
     }
 }
 
-export default Home
+export default Hosting

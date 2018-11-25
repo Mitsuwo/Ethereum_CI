@@ -26,9 +26,8 @@ const Navbar = (props) => {
             <AppBar position="static" color="inherit">
                 <Toolbar>
                     <Link to='/' className={classes.grow}><Button>需要予測システム</Button></Link>
-                    <NavLink to='/hostlist'><Button>Host List</Button></NavLink>
+                    <NavLink to='/hosting'><Button>Home</Button></NavLink>
                     <NavLink to='/about'><Button>ABOUT</Button></NavLink>
-                    <NavLink to='/voting'><Button>VOTING</Button></NavLink>
                 </Toolbar>
             </AppBar>
         </div>
