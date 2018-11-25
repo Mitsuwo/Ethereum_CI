@@ -90,8 +90,8 @@ class App extends Component {
         )
     }
 
-    sendHost(title, description, reward) {
-        this.electionInstance.host(title, description, reward, { from: this.state.account })
+    sendHost(title, description, reward, biddingTime) {
+        this.electionInstance.host(title, description, reward, biddingTime, { from: this.state.account })
         .then((result) =>
             console.log('sent!')
         )

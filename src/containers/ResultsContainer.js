@@ -6,7 +6,7 @@ class ResultsContainer extends Component {
     render() {
         return (
             <div>
-                <CalcResult filtered_votes={this.props.filtered_votes}/>
+                {/* <CalcResult filtered_votes={this.props.filtered_votes}/> */}
                 <ViewTable filtered_votes={this.props.filtered_votes}/>
             </div>
         )

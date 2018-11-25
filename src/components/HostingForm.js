@@ -7,6 +7,7 @@ class HostingForm extends Component {
           title: '',
           description: '',
           reward: '',
+          biddingTime: '',
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -21,7 +22,7 @@ class HostingForm extends Component {
             <form onSubmit={e => {
                 e.preventDefault()
                 console.log(this.state)
-                this.props.sendHost(this.state.title, this.state.description, this.state.reward)
+                this.props.sendHost(this.state.title, this.state.description, this.state.reward, this.state.biddingTime)
             }}>
             <div class='form-group'>
                 <div>
@@ -35,6 +36,10 @@ class HostingForm extends Component {
                 <div>
                     <label>報酬設定</label>
                     <input type="text" id="reward" value={this.state.reward} onChange={this.handleChange}/>
+                </div>
+                <div>
+                    <label>期限</label>
+                    <input type="text" id="biddingTime" value={this.state.biddingTime} onChange={this.handleChange}/>
                 </div>
             </div>
             <button type='submit' value='send'>予測開始</button>

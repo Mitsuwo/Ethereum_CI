@@ -15,6 +15,7 @@ contract Election {
         string title;
         string description;
         string reward;
+        uint end;
     }
 
     mapping(uint => Vote) public votes;
@@ -28,7 +29,7 @@ contract Election {
     uint public hostsCount;
 
     constructor() public {
-        host("自動生成", "この商品の需要量を予測してください", "報酬タイプA");
+        host("自動生成", "この商品の需要量を予測してください", "報酬タイプA", 100);
     }
 
     function vote(uint _value, uint _hostId) public {
@@ -37,9 +38,10 @@ contract Election {
         votes[votesCount] = Vote(votesCount, msg.sender, _value, _hostId);
     }
 
-    function host (string _title, string _description, string _reward) public {
+    function host(string _title, string _description, string _reward, uint _biddingTime) public {
         hostsCount ++;
-        hosts[hostsCount] = Host(hostsCount, msg.sender, _title, _description, _reward);
+        uint end = now + _biddingTime * 1 minutes;
+        hosts[hostsCount] = Host(hostsCount, msg.sender, _title, _description, _reward, end);
     }
 
     function getHost(uint _id) public view returns (uint, address, string, string, string) {
