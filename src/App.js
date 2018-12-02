@@ -56,6 +56,7 @@ class App extends Component {
                                 sender: vote[1],
                                 value: vote[2],
                                 hostId: vote[3],
+                                when: vote[4],
                             });
                             this.setState({ votes: votes })
                         });
@@ -71,6 +72,7 @@ class App extends Component {
                                 title: host[2],
                                 description: host[3],
                                 reward: host[4],
+                                end: host[5],
                             });
                             this.setState({ hosts: hosts })
                         });
@@ -98,10 +100,11 @@ class App extends Component {
     }
 
     getHost(id) {
-        console.log(id)
         this.electionInstance.getHost(id, { from: this.state.account })
         .then((result) =>
-            this.setState({host: result})
+            this.setState({
+                host: result,
+            })
         )
     }
 
@@ -134,6 +137,7 @@ class App extends Component {
                                 match={match}
                                 host={this.state.host}
                                 votes={this.state.votes}
+                                hosts={this.state.hosts}
                             />}
                         />
                         <Route path='/about' component={() =>

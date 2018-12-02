@@ -33,7 +33,7 @@ class VotingForm extends React.Component {
         console.log(this.props.Id)
         this.props.sendVote(this.state.value, this.props.hostId)
       }}>
-        <div class='form-group'>
+        <div className='form-group'>
           <FormControl fullWidth>
             <TextField
               type="text"

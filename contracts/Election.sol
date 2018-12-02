@@ -7,6 +7,7 @@ contract Election {
         address sender;
         uint value;
         uint hostId;
+        uint when;
     }
 
     struct Host {
@@ -22,37 +23,35 @@ contract Election {
 
     mapping(uint => Host) public hosts;
 
-    //mapping(int => Vote) public voteIdFromHostId;
-
     uint public votesCount;
 
     uint public hostsCount;
 
     constructor() public {
-        host("自動生成", "この商品の需要量を予測してください", "報酬タイプA", 100);
+        host("自動生成", "この商品の需要量を予測してください", "報酬タイプA", 10000);
     }
 
     function vote(uint _value, uint _hostId) public {
         require(_value != 0);
         votesCount ++;
-        votes[votesCount] = Vote(votesCount, msg.sender, _value, _hostId);
+        votes[votesCount] = Vote(votesCount, msg.sender, _value, _hostId, now);
     }
 
     function host(string _title, string _description, string _reward, uint _biddingTime) public {
         hostsCount ++;
-        uint end = now + _biddingTime * 1 minutes;
+        uint end = now + _biddingTime;
         hosts[hostsCount] = Host(hostsCount, msg.sender, _title, _description, _reward, end);
     }
 
-    function getHost(uint _id) public view returns (uint, address, string, string, string) {
-        Host memory host = hosts[_id];
-        return (_id, host.sender, host.title, host.description, host.reward);
+    function getVote(uint _id) public view returns (uint, address, uint, uint, uint) {
+        Vote memory vote = votes[_id];
+        return (_id, vote.sender, vote.value, vote.hostId, vote.when);
     }
 
-    function getVote(uint _id) public view returns (uint, address, uint, uint) {
-        Vote memory vote = votes[_id];
-        return (_id, vote.sender, vote.value, vote.hostId);
-    }
+    // function getHost(uint _id) public view returns (uint, address, string, string, string, uint) {
+    //     Host memory host = hosts[_id];
+    //     return (_id, host.sender, host.title, host.description, host.reward, host.end);
+    // }
 
     // function addVote (string _name) private {
     //     candidatesCount ++;

@@ -6,35 +6,24 @@ import HostDetail from '../components/HostDetail'
 class HostContainer extends Component {
     constructor(props) {
         super(props)
-        this.filterList = this.filterList.bind(this)
-    }
-    state = {
-        id: null,
-        votes: this.props.votes,
-    }
-    componentWillMount() {
-        let id = this.props.match.match.params.id
-        this.setState({ id: id })
-    }
-
-    componentDidMount() {
-        this.props.getHost(this.state.id)
-        this.filterList()
-    }
-
-    filterList() {
-        const filtered = this.state.votes.filter((vote) => {
-          return vote.hostId == this.state.id
-        })
-        this.setState({votes: filtered})
+        this.state = {
+            id: this.props.match.match.params.id,
+            votes: this.props.votes.filter((vote) => {
+                return vote.hostId == this.props.match.match.params.id
+            }),
+            host: this.props.hosts[this.props.match.match.params.id - 1],
+        }
     }
 
     render() {
+        console.log(this.state.host)
         return(
             <div>
-                <HostDetail host={this.props.host}/>
+                <hr/>
+                <HostDetail host={this.state.host}/>
+                <hr/>
                 <VotingForm sendVote={this.props.sendVote} hostId={this.state.id}/>
-                <ResultsContainer filtered_votes={this.state.votes} />
+                <ResultsContainer votes={this.state.votes}/>
             </div>
         )
     }

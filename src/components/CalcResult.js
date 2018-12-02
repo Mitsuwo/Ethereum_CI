@@ -3,17 +3,18 @@ import React, { Component } from 'react'
 class CalcResult extends Component {
     constructor(props) {
         super(props)
+        this.props.long == 0
+        ? this.state ={sum: 0}
+        : this.state ={sum: this.props.values.reduce(function(p, c) {return p + c;})}
     }
+
     render() {
-        let arr = this.props.filtered_votes;
-        let values = arr.map((vote) => vote.value.toNumber())
-        let sum = values.reduce(function(p, c) {
-            return p + c;
-        });
-        let ave = sum / arr.length
         return(
             <div>
-                <h4>平均値：{ave.toFixed(2)}</h4>
+                {this.state.sum == 0
+                ? <h4>投票なし</h4>
+                : <h4>平均値：{(this.state.sum / this.props.long).toFixed(2)}</h4>
+                }
                 <hr/>
             </div>
         )

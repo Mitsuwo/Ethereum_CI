@@ -5,7 +5,7 @@ class Hosting extends Component {
     render() {
         return(
             <div>
-                <div>予測概要入力</div>
+                <h4>予測概要入力</h4>
                 <HostingForm sendHost={this.props.sendHost}/>
             </div>
         )
