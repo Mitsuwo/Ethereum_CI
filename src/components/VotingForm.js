@@ -32,6 +32,10 @@ class VotingForm extends React.Component {
         console.log(this.state.value)
         console.log(this.props.Id)
         this.props.sendVote(this.state.value, this.props.hostId)
+        this.setState({
+          value: '',
+        })
+        this.props.remount();
       }}>
         <div className='form-group'>
           <FormControl fullWidth>

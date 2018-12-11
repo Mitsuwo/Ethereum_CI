@@ -20,7 +20,6 @@ class App extends Component {
             hasVoted: false,
             loading: true,
             voting: false,
-            host: [],
         }
         if (typeof web3 != 'undefined') {
             this.web3Provider = web3.currentProvider
@@ -35,7 +34,6 @@ class App extends Component {
     
         this.sendVote = this.sendVote.bind(this)
         this.sendHost = this.sendHost.bind(this)
-        this.getHost = this.getHost.bind(this)
     }
 
     componentDidMount() {
@@ -99,15 +97,6 @@ class App extends Component {
         )
     }
 
-    getHost(id) {
-        this.electionInstance.getHost(id, { from: this.state.account })
-        .then((result) =>
-            this.setState({
-                host: result,
-            })
-        )
-    }
-
     render() {
         return (
             <BrowserRouter>
@@ -132,12 +121,11 @@ class App extends Component {
                         }/>
                         <Route path='/host/:id' render={(match) =>
                             <HostContainer
-                                getHost={this.getHost}
                                 sendVote={this.sendVote}
                                 match={match}
-                                host={this.state.host}
                                 votes={this.state.votes}
                                 hosts={this.state.hosts}
+                                remount={this.componentDidMount}
                             />}
                         />
                         <Route path='/about' component={() =>

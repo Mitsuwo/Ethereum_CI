@@ -16,11 +16,10 @@ class HostContainer extends Component {
     }
 
     render() {
-        console.log(this.state.host)
         return(
             <div>
                 <hr/>
-                <HostDetail host={this.state.host}/>
+                <HostDetail host={this.state.host} remount={this.props.remount}/>
                 <hr/>
                 <VotingForm sendVote={this.props.sendVote} hostId={this.state.id}/>
                 <ResultsContainer votes={this.state.votes}/>

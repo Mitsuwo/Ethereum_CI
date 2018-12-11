@@ -34,7 +34,7 @@ contract Election {
     function vote(uint _value, uint _hostId) public {
         require(_value != 0);
         votesCount ++;
-        votes[votesCount] = Vote(votesCount, msg.sender, _value, _hostId, now);
+        votes[votesCount] = Vote(votesCount, msg.sender, _value, _hostId, block.timestamp);
     }
 
     function host(string _title, string _description, string _reward, uint _biddingTime) public {

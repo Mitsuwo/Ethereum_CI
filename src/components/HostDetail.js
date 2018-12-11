@@ -25,6 +25,7 @@ class HostDetail extends Component {
                     <Typography>
                         <h4>投票終了時刻</h4>
                         <Moment format="YYYY/MM/DD HH:mm">{this.props.host.end.toNumber()}</Moment>
+                        {this.props.host.end.toNumber()}
                     </Typography>
                 </CardContent>
             </Card>

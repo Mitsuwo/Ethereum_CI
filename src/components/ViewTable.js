@@ -21,7 +21,6 @@ class ViewTable extends Component {
           </TableHead>
           <TableBody>
             {this.props.votes.map((vote) => {
-              console.log(vote.value);
               return(
                 <TableRow>
                   <TableCell>{vote.sender}</TableCell>
