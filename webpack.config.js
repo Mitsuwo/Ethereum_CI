@@ -5,7 +5,7 @@ module.exports = {
     entry: './src/App.js',
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '/dist'),
     },
     module: {
         rules: [
@@ -26,12 +26,19 @@ module.exports = {
                 test: /\.json$/,
                 loader: 'json-loader',
                 include: '/build/contracts/'
-            }
+            },
+            {
+                test: /\.css/,
+                use: [
+                  'style-loader',
+                  {loader: 'css-loader', options: {url: false}},
+                ],
+            },
         ]
     },
     devServer: {
         port: 3000,
         contentBase: './public',
-        inline: true
+        historyApiFallback: true,
     }
 };

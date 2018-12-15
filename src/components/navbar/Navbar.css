@@ -1,0 +1,39 @@
+.root {
+    flex-grow: 1;
+    margin: 0;
+    height: 70;
+    padding-top: 20;
+}
+
+.link {
+    flex-grow: 1;
+    text-decoration: none;
+}
+
+.navLink {
+    text-decoration: none;
+    color: white;
+}
+
+.appbar {
+    height: 80;
+    padding-top: 10;
+}
+
+.title {
+    font-family: "M PLUS Rounded 1c";
+    font-size: 25;
+    color: white;
+}
+
+.item {
+    color: white;
+}
+
+.address {
+    margin-top: 80;
+    height: 30;
+    padding-top: 3;
+    padding-right: 50;
+    text-align: right;
+}

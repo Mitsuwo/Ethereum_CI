@@ -7,7 +7,7 @@ import TruffleContract from 'truffle-contract'
 import Hosting from './components/Hosting'
 import About from './components/About'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Navbar from './components/Navbar'
+import Navbar from './components/navbar/Navbar'
 import HostContainer from './containers/HostContainer'
 
 class App extends Component {
@@ -52,9 +52,10 @@ class App extends Component {
                             votes.push({
                                 id: vote[0],
                                 sender: vote[1],
-                                value: vote[2],
-                                hostId: vote[3],
-                                when: vote[4],
+                                level: vote[2],
+                                value: vote[3],
+                                hostId: vote[4],
+                                when: vote[5],
                             });
                             this.setState({ votes: votes })
                         });
@@ -71,6 +72,8 @@ class App extends Component {
                                 description: host[3],
                                 reward: host[4],
                                 end: host[5],
+                                minValue: host[6],
+                                maxValue: host[7],
                             });
                             this.setState({ hosts: hosts })
                         });
@@ -80,11 +83,10 @@ class App extends Component {
         })
     }
     
-    sendVote(value, hostId) {
+    sendVote(level, value, hostId) {
         this.setState({ voting: true })
-        console.log(value)
-        console.log(hostId)
-        this.electionInstance.vote(value, hostId, { from: this.state.account })
+        // console.log(level, hostId, value)
+        this.electionInstance.vote(level, value, hostId, { from: this.state.account })
         .then((result) =>
             console.log('voted!')
         )
