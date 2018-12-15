@@ -7,6 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Card from '@material-ui/core/Card';
 import { withRouter } from 'react-router-dom';
+import './Vote.css';
 
 class VotingForm extends React.Component {
   constructor(props) {
@@ -37,9 +38,10 @@ class VotingForm extends React.Component {
     const levelNine = levelEight + levelRange;
     const levelTen = levelNine + levelRange;
     return (
-      <div style={style.card}>
-        <Card>
-          <form onSubmit={e => {
+      <div className="card">
+        <Card className="pad">
+          <p className="vote-title">投票フォーム</p>
+          <form className="box" onSubmit={e => {
             e.preventDefault()
             if (this.state.value == 1) {
               this.props.child.sendVote(1, levelOne, this.props.child.hostId);
@@ -67,8 +69,8 @@ class VotingForm extends React.Component {
             });
             this.props.history.push(`/host/${this.props.child.hostId}`);
           }}>
-            <div className='form-group'>
-              <FormControl variant="outlined" fullWidth>
+            <div className='form-group select item'>
+              <FormControl fullWidth variant="outlined">
                 <InputLabel
                   htmlFor="outlined-age-simple"
                 >
@@ -97,18 +99,12 @@ class VotingForm extends React.Component {
                 </Select>
               </FormControl>
             </div>
-            <Button size='large' variant="outlined" type='submit' value='send'>投票</Button>
+            <Button size='large' variant="outlined" type='submit' value='send' className="voteButton">投票</Button>
           </form>
         </Card>
       </div>
     );
   }
-}
-
-const style = {
-  card: {
-    margin: 30,
-  },
 }
 
 export default withRouter(VotingForm);

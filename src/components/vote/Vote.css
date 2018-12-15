@@ -1,0 +1,24 @@
+.voteButton {
+    flex-grow: 1;
+}
+
+.select {
+    flex-grow: 6;
+}
+
+.card {
+    margin: 30;
+}
+
+.pad {
+    padding: 20
+}
+
+.box {
+    display: flex;
+}
+
+.vote-title {
+    text-align: center;
+    font-size: 20;
+}

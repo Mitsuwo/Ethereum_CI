@@ -3,12 +3,12 @@ import HostingForm from './HostingForm';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import styled from 'styled-components'
+import './Host.css';
 
 class Hosting extends Component {
     render() {
         return(
-            <div style={style.card}>
+            <div className="host-card">
                 <Card>
                     <CardHeader title="予測概要入力" />
                     <CardContent>
@@ -18,14 +18,6 @@ class Hosting extends Component {
             </div>
         );
     }
-}
-
-const style = {
-    card: {
-        margin: 'auto',
-        paddingTop: 100,
-        maxWidth: 800,
-    },
 }
 
 export default Hosting;

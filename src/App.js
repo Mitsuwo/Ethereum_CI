@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Web3 from 'web3'
-import HostList from './components/HostList'
+import HostList from './components/home/HostList'
 import Election from '..//build/contracts/Election.json'
 import TruffleContract from 'truffle-contract'
-import Hosting from './components/Hosting'
+import Hosting from './components/host/Hosting'
 import About from './components/About'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Navbar from './components/navbar/Navbar'
@@ -70,10 +70,11 @@ class App extends Component {
                                 sender: host[1],
                                 title: host[2],
                                 description: host[3],
-                                reward: host[4],
-                                end: host[5],
-                                minValue: host[6],
-                                maxValue: host[7],
+                                image: host[4],
+                                reward: host[5],
+                                end: host[6],
+                                minValue: host[7],
+                                maxValue: host[8],
                             });
                             this.setState({ hosts: hosts })
                         });
@@ -92,9 +93,17 @@ class App extends Component {
         )
     }
 
-    sendHost(title, description, reward, biddingTime) {
-        this.electionInstance.host(title, description, reward, biddingTime, { from: this.state.account })
-        .then((result) =>
+    sendHost(title, description, image, reward, biddingTime, minValue, maxValue) {
+        this.electionInstance.host(
+            title,
+            description,
+            image,
+            reward,
+            biddingTime,
+            minValue,
+            maxValue,
+            { from: this.state.account }
+        ).then((result) =>
             console.log('sent!')
         )
     }

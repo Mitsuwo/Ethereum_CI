@@ -9,8 +9,11 @@ class HostingForm extends Component {
         this.state = {
           title: '',
           description: '',
+          image: '',
           reward: '',
           biddingTime: '',
+          minValue: '',
+          maxValue: '',
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -25,7 +28,15 @@ class HostingForm extends Component {
             <form onSubmit={e => {
                 e.preventDefault()
                 console.log(this.state)
-                this.props.sendHost(this.state.title, this.state.description, this.state.reward, this.state.biddingTime)
+                this.props.sendHost(
+                    this.state.title,
+                    this.state.description,
+                    this.state.image,
+                    this.state.reward,
+                    this.state.biddingTime,
+                    this.state.minValue,
+                    this.state.maxValue,
+                );
             }}>
                 <div className='form-group'>
                     <FormControl fullWidth>
@@ -53,6 +64,17 @@ class HostingForm extends Component {
                     <FormControl fullWidth>
                         <TextField
                             type="text"
+                            id="image"
+                            value={this.state.image}
+                            onChange={this.handleChange}
+                            margin="normal"
+                            variant="outlined"
+                            label="画像URL"
+                        />
+                    </FormControl>
+                    <FormControl fullWidth>
+                        <TextField
+                            type="text"
                             id="reward"
                             value={this.state.reward}
                             onChange={this.handleChange}
@@ -72,6 +94,28 @@ class HostingForm extends Component {
                             label="予測期間"
                         />
                     </FormControl>
+                    <FormControl fullWidth>
+                        <TextField
+                            type="text"
+                            id="minValue"
+                            value={this.state.minValue}
+                            onChange={this.handleChange}
+                            margin="normal"
+                            variant="outlined"
+                            label="予測区間最低値"
+                        />
+                    </FormControl>
+                    <FormControl fullWidth>
+                        <TextField
+                            type="text"
+                            id="maxValue"
+                            value={this.state.maxValue}
+                            onChange={this.handleChange}
+                            margin="normal"
+                            variant="outlined"
+                            label="予測区間最高値"
+                        />
+                    </FormControl>
                 </div>
                 <Button
                     size='large'
@@ -83,7 +127,7 @@ class HostingForm extends Component {
                     予測開始
                 </Button>
             </form>
-        )
+        );
     }
 }
 

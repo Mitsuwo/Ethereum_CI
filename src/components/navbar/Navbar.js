@@ -12,8 +12,8 @@ const Navbar = (props) => {
             <AppBar position="fixed" style={{ backgroundColor: '#2f4f4f' }} className="appbar">
                 <Toolbar>
                     <Link to='/' className="link"><p className="title">需要予測システム</p></Link>
-                    <NavLink to='/hosting' className="navLink"><Button><p className="item">Home</p></Button></NavLink>
-                    <NavLink to='/about' className="navLink"><Button><p className="item">ABOUT</p></Button></NavLink>
+                    <NavLink to='/hosting' className="navLink"><Button><p className="item">主催する</p></Button></NavLink>
+                    <NavLink to='/about' className="navLink"><Button><p className="item">参加者選択</p></Button></NavLink>
                 </Toolbar>
             </AppBar>
         </div>

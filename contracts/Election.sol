@@ -16,6 +16,7 @@ contract Election {
         address sender;
         string title;
         string description;
+        string image;
         string reward;
         uint end;
         uint minValue;
@@ -31,7 +32,15 @@ contract Election {
     uint public hostsCount;
 
     constructor() public {
-        host("自動生成", "この商品の需要量を予測してください", "報酬タイプA", 10000, 100, 10000);
+        host(
+            "自動生成",
+            "この商品の需要量を予測してください",
+            "https://www.gettyimages.co.jp/detail/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88/water-bottles-illustration-%E3%83%AD%E3%82%A4%E3%83%A4%E3%83%AA%E3%83%86%E3%82%A3%E3%83%95%E3%83%AA%E3%83%BC%E3%81%AE%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88/637753312",
+            "報酬タイプA",
+            10000,
+            100,
+            10000
+        );
     }
 
     function vote(uint _level, uint _value, uint _hostId) public {
@@ -40,10 +49,10 @@ contract Election {
         votes[votesCount] = Vote(votesCount, msg.sender, _level, _value, _hostId, block.timestamp);
     }
 
-    function host(string memory _title, string memory _description, string memory _reward, uint _biddingTime, uint _minValue, uint _maxValue) public {
+    function host(string memory _title, string memory _description, string memory _image, string memory _reward, uint _biddingTime, uint _minValue, uint _maxValue) public {
         hostsCount ++;
         uint end = now + _biddingTime;
-        hosts[hostsCount] = Host(hostsCount, msg.sender, _title, _description, _reward, end, _minValue, _maxValue);
+        hosts[hostsCount] = Host(hostsCount, msg.sender, _title, _description, _image, _reward, end, _minValue, _maxValue);
     }
 
     function getVote(uint _id) public view returns (uint, address, uint, uint, uint, uint) {
