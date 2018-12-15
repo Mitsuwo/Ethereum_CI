@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import VotingForm from '../components/vote/VotingForm';
 import ResultsContainer from './ResultsContainer';
-import HostDetail from '../components/HostDetail';
+import HostDetail from '../components/content/HostDetail';
 
 class HostContainer extends Component {
     constructor(props) {

@@ -99,7 +99,7 @@ class VotingForm extends React.Component {
                 </Select>
               </FormControl>
             </div>
-            <Button size='large' variant="outlined" type='submit' value='send' className="voteButton">投票</Button>
+            <Button size='large' variant="contained" type='submit' color="default" value='send' className="voteButton"><strong>投票</strong></Button>
           </form>
         </Card>
       </div>

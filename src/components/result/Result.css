@@ -1,3 +1,9 @@
 .average {
     font-size: 30;
+    margin: 0 20;
+}
+
+.calc-box {
+    display: flex;
+    justify-content: center;
 }

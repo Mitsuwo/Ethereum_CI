@@ -45,7 +45,6 @@ class HostingForm extends Component {
                             id="title"
                             value={this.state.title}
                             onChange={this.handleChange}
-                            margin="normal"
                             variant="outlined"
                             label="タイトル"
                         />
@@ -94,29 +93,28 @@ class HostingForm extends Component {
                             label="予測期間"
                         />
                     </FormControl>
-                    <FormControl fullWidth>
+                    <FormControl>
                         <TextField
                             type="text"
                             id="minValue"
                             value={this.state.minValue}
                             onChange={this.handleChange}
                             margin="normal"
-                            variant="outlined"
-                            label="予測区間最低値"
+                            // variant="outlined"
+                            label="予測区間最低値　〜"
                         />
-                    </FormControl>
-                    <FormControl fullWidth>
+                    </FormControl><FormControl>
                         <TextField
                             type="text"
                             id="maxValue"
                             value={this.state.maxValue}
                             onChange={this.handleChange}
                             margin="normal"
-                            variant="outlined"
+                            // variant="outlined"
                             label="予測区間最高値"
                         />
                     </FormControl>
-                </div>
+                </div><br/>
                 <Button
                     size='large'
                     variant="contained"

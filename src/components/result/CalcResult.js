@@ -11,7 +11,9 @@ class CalcResult extends Component {
 
     render() {
         return(
-            <center>
+            <center className="calc-box">
+                <p className="average">総投票数：{this.props.long}</p>
+                <p className="average">/</p>
                 {this.state.sum == 0
                 ? <p className="average">投票なし</p>
                 : <p className="average">平均値：{(this.state.sum / this.props.long).toFixed(2)}</p>

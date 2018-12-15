@@ -1,9 +1,11 @@
 .voteButton {
     flex-grow: 1;
+    margin: 0 10;
 }
 
 .select {
     flex-grow: 6;
+    margin: 0 10;
 }
 
 .card {

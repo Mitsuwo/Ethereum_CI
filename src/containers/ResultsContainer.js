@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ViewTable from '../components/ViewTable';
+import ViewTable from '../components/content/ViewTable';
 import CalcResult from '../components/result/CalcResult';
 import Histogram from '../components/result/Histogram';
 import './Container.css';
